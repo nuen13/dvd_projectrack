@@ -18,3 +18,6 @@ supabase/.temp/
 .vscode/*
 !.vscode/extensions.json
 .idea/
+
+# Cloudflare wrangler local state
+.wrangler/

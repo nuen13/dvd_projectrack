@@ -1,0 +1,13 @@
+# Cloudflare Pages security headers (ADR-0005). Applied to every route.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://tjtdfwgqhoysgpfxaywq.supabase.co; connect-src 'self' https://tjtdfwgqhoysgpfxaywq.supabase.co wss://tjtdfwgqhoysgpfxaywq.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+# Hashed build assets never change; cache them hard.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
