@@ -1,0 +1,25 @@
+/* Base tokens from the prototype; the full shelf CSS is ported in build step 3. */
+:root {
+  --ink: #121212;
+  --muted: #6d6a63;
+  --line: #c9c5bc;
+  --ease: cubic-bezier(.72, 0, .18, 1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { min-height: 100%; }
+body {
+  background: radial-gradient(ellipse 90% 70% at 50% 15%, #f6f5f1 0%, #e7e5df 60%, #dcd9d2 100%);
+  color: var(--ink);
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.site-header { text-align: center; padding: 34px 16px 0; position: relative; }
+.topbar {
+  position: absolute; inset: 14px 20px auto; display: flex; justify-content: space-between;
+  font: 500 10px/1 Inter; letter-spacing: .14em; color: var(--muted); text-transform: uppercase;
+}
+.kicker { font: 600 11px/1 Inter; letter-spacing: .2em; text-transform: uppercase; margin-top: 12px; }
+h1 {
+  font-family: 'Instrument Serif', serif; font-weight: 400; text-transform: uppercase;
+  font-size: clamp(46px, 8vw, 100px); line-height: .86; margin-top: 10px;
+}

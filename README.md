@@ -40,16 +40,16 @@ Cover width and shelf gap are derived from `height` and `thickness` (ADR-0006).
 The repo is public; the data is protected by Supabase policies, not by secrecy.
 
 - [ ] No secrets in git — `.env*` ignored; only `.env.example` committed
-- [ ] Only the anon key in the client; service-role key never used client-side
+- [ ] Only the publishable key in the client; service-role key never used client-side
 - [ ] GitHub secret scanning + push protection enabled on the repo
-- [ ] RLS enabled on every table, deny by default
-- [ ] Anon `SELECT` on `discs` only where `status = 'shipped' AND is_public`
-- [ ] Writes only where `auth.uid()` = owner id stored in the database
-- [ ] `covers` bucket: public read, owner-only write, image MIME types, 2 MB limit
+- [x] RLS enabled on every table, deny by default
+- [x] Anon `SELECT` on `discs` only where `status = 'shipped' AND is_public`
+- [x] Writes only where `auth.uid()` = owner id stored in the database
+- [x] `covers` bucket: public read (no listing), owner-only write, WebP only, 2 MB limit
 - [ ] Supabase Auth: email sign-ups disabled, GitHub the only provider
 - [ ] `_headers`: CSP, `X-Frame-Options: DENY`, `Referrer-Policy`
 - [ ] Disc links validated to `http`/`https` only
-- [ ] Supabase security advisor clean after each migration
+- [x] Supabase security advisor clean after each migration (re-run `supabase/tests/rls_smoke.sql` too)
 
 ## Build order
 
