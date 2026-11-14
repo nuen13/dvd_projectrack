@@ -1,0 +1,3 @@
+# The public site is a faithful port of the shelf; Admin is a plain table and form
+
+The public site reproduces the original prototype's experience (3D shelf, drag-into-player, CRT effects, now-playing popup) as React components. Admin deliberately does *not* reuse the shelf: it is a table (status, Public, position by drag) plus an edit form with a live spine/cover preview, because scanning "what is still in progress / what is hidden" is faster in a table than by pulling spines out one at a time. Of the prototype's visual fields, only seven are editable (cover/text colour, pattern, spine style, thickness, height, image + image mode); cover width is derived from height and the shelf gap from thickness to keep the shelf consistent.
