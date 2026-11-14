@@ -48,7 +48,7 @@ export function coverTag(d: Pick<Disc, 'cover_tag' | 'status'>): string {
 
 export function coverImageUrl(d: Pick<Disc, 'image_path'>): string {
   if (!d.image_path) return ''
-  if (/^(data:image\/|https?:)/.test(d.image_path)) return d.image_path // local previews / demo
+  if (/^(blob:|data:image\/|https?:)/.test(d.image_path)) return d.image_path // unsaved previews / demo
   return supabase.storage.from('covers').getPublicUrl(d.image_path).data.publicUrl
 }
 

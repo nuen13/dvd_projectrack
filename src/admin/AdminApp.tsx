@@ -1,6 +1,7 @@
 import { Link, Route, Routes } from 'react-router-dom'
 import { site } from '../site.config'
 import { signInWithGitHub, signOut, useIsOwner, useSession } from './auth'
+import { DiscEditor } from './DiscEditor'
 import { DiscTable } from './DiscTable'
 import './admin.css'
 
@@ -40,7 +41,7 @@ export default function AdminApp() {
     <Shell email={session.user.email} signedIn>
       <Routes>
         <Route index element={<DiscTable />} />
-        <Route path="discs/:id" element={<EditorPlaceholder />} />
+        <Route path="discs/:id" element={<DiscEditor />} />
       </Routes>
     </Shell>
   )
@@ -58,15 +59,6 @@ function Shell({ children, email, signedIn }: { children: React.ReactNode; email
         </nav>
       </header>
       <main className="ad-main">{children}</main>
-    </div>
-  )
-}
-
-function EditorPlaceholder() {
-  return (
-    <div className="ad-card">
-      <p>The disc editor arrives in build step 5.</p>
-      <Link to="/admin">← Back to discs</Link>
     </div>
   )
 }

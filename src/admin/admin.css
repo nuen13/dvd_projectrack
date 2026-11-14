@@ -50,3 +50,48 @@
 .ad-empty{padding:30px 0;text-align:center}
 .ad-hint{font-size:12px;margin-top:10px}
 @media (max-width:640px){.ad-main{padding:20px 14px 40px}.ad-top{padding:12px 14px}.ad-head h1{font-size:34px}}
+
+/* Editor */
+.ad-editor{display:flex;flex-direction:column;gap:18px}
+.ad-ed-head{display:flex;flex-direction:column;gap:6px}
+.ad-ed-head a{text-decoration:none;font-size:13px}
+.ad-ed-head h1{font:400 40px/1 'Instrument Serif',serif;text-transform:uppercase}
+.ad-ed-body{display:grid;grid-template-columns:330px 1fr;background:var(--a-card);border:1px solid var(--a-line);border-radius:14px;overflow:hidden}
+.ad-prev{background:radial-gradient(ellipse at 50% 30%,#fbfaf7,#e2dfd8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:28px 18px;border-right:1px solid var(--a-line);position:sticky;top:60px;align-self:start;min-height:440px}
+.ad-prev-stage{display:flex;align-items:flex-end;gap:14px}
+.admin .prev-spine{--cs:.62;width:calc(var(--t)*var(--cs)*1px);height:calc(var(--h)*var(--cs)*1px);box-shadow:0 14px 24px -12px rgba(0,0,0,.45)}
+.admin .prev-cover{--cs:.62;width:calc(var(--w)*var(--cs)*1px);height:calc(var(--h)*var(--cs)*1px);border-radius:2px;box-shadow:0 18px 30px -12px rgba(0,0,0,.45)}
+.ad-note{font:500 10px/1 Inter;letter-spacing:.16em;text-transform:uppercase}
+.ad-badge{font-size:12px;padding:6px 10px;border-radius:99px;background:#e9e6df;color:var(--a-muted);text-align:center}
+.ad-badge.live{background:#dcefe3;color:var(--a-live);font-weight:600}
+.ad-fields{padding:20px 22px;display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;align-content:start}
+.ad-fields .f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.ad-fields .f.wide{grid-column:1/-1}
+.ad-fields .f>span{font:600 10px/1 Inter;letter-spacing:.14em;text-transform:uppercase;color:var(--a-muted);display:flex;justify-content:space-between}
+.ad-fields .f>span output{letter-spacing:0;font-weight:500}
+.ad-fields input[type=text],.ad-fields input:not([type]),.ad-fields input[type=url],.ad-fields input[type=date],.ad-fields select,.ad-fields textarea{width:100%;border:1px solid #d3cfc5;background:#fff;border-radius:9px;padding:9px 11px;outline:none}
+.ad-fields textarea{min-height:96px;resize:vertical}
+.ad-fields input:focus,.ad-fields select:focus,.ad-fields textarea:focus{border-color:var(--a-ink);box-shadow:0 0 0 3px rgba(0,0,0,.06)}
+.ad-fields input[aria-invalid="true"]{border-color:var(--a-err)}
+.ad-fields input[type=range]{accent-color:var(--a-ink)}
+.ad-fields small{font-size:11.5px}
+.ad-check{flex-direction:row!important;align-items:center;gap:8px!important;align-self:end;padding-bottom:10px;cursor:pointer}
+.ad-check input{width:16px;height:16px;accent-color:var(--a-live)}
+.ad-check span{font-size:13px}
+.ad-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ad-colour{display:flex;align-items:center;gap:8px;border:1px solid #d3cfc5;background:#fff;border-radius:9px;padding:4px 10px 4px 4px;font-size:13px;cursor:pointer}
+.ad-colour input{width:30px;height:28px;border:0;padding:0;background:none;cursor:pointer}
+.ad-swatches{display:flex;gap:6px;flex-wrap:wrap}
+.ad-sw{width:26px;height:26px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;position:relative;overflow:hidden;padding:0}
+.ad-sw i{position:absolute;right:0;bottom:0;width:50%;height:50%}
+.ad-drop{border:1.5px dashed #c9c5bc;border-radius:10px;padding:12px;display:flex;gap:12px;align-items:center;background:#faf9f6}
+.ad-drop.hot{border-color:var(--a-ink);background:#fff}
+.ad-drop img{width:56px;height:56px;object-fit:cover;border-radius:6px}
+.ad-drop-text{display:flex;flex-direction:column;gap:8px;font-size:13px}
+.ad-link{cursor:pointer;text-decoration:underline;display:inline}
+.ad-link input{position:absolute;width:1px;height:1px;opacity:0}
+.ad-ed-foot{position:sticky;bottom:0;display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 0;background:var(--a-bg);border-top:1px solid var(--a-line)}
+.ad-grow{flex:1}
+.ad-danger{color:var(--a-err);border-color:rgba(179,38,30,.35)}
+.ad-danger.armed{background:var(--a-err);color:#fff}
+@media (max-width:860px){.ad-ed-body{grid-template-columns:1fr}.ad-prev{position:static;min-height:0;border-right:0;border-bottom:1px solid var(--a-line)}.ad-fields{grid-template-columns:1fr}}

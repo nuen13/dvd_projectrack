@@ -72,7 +72,8 @@ export function DiscTable() {
         <select value={newStatus} onChange={(e) => setNewStatus(e.target.value as DiscStatus)} aria-label="New disc status">
           {STATUSES.map((s) => <option key={s} value={s}>{STATUS_LABEL[s]}</option>)}
         </select>
-        <button className="ad-btn ad-primary" disabled={!newTitle.trim() || create.isPending}>＋ Add disc</button>
+        <button className="ad-btn ad-primary" disabled={!newTitle.trim() || create.isPending}>＋ Quick add</button>
+        <Link className="ad-btn" to="/admin/discs/new">Open full editor</Link>
         {create.isError && <span className="ad-err">Couldn’t add the disc.</span>}
       </form>
 
