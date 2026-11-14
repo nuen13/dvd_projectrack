@@ -51,6 +51,17 @@ The repo is public; the data is protected by Supabase policies, not by secrecy.
 - [ ] Disc links validated to `http`/`https` only
 - [x] Supabase security advisor clean after each migration (re-run `supabase/tests/rls_smoke.sql` too)
 
+## Owner setup (one-time, per Supabase project)
+
+The owner's user id lives only in the database, never in this repo.
+
+1. GitHub → Settings → Developer settings → OAuth Apps → new app. Callback URL: `https://<project-ref>.supabase.co/auth/v1/callback`.
+2. Supabase → Authentication → Sign In / Providers → GitHub: enable, paste Client ID + Secret, **Save**.
+3. Supabase → Authentication → URL Configuration: Site URL + Redirect URL `<origin>/admin` (localhost and production).
+4. Sign in once at `/admin` (you'll see "Not the owner") — this creates your user.
+5. Register it: `insert into public.owner (user_id) values ('<your auth.users id>');`
+6. Lock it down: turn **off** "Allow new users to sign up" and disable the Email provider.
+
 ## Build order
 
 1. Scaffold Vite app + `site.config.ts`; create Supabase project

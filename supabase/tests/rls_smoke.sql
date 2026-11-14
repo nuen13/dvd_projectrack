@@ -41,12 +41,16 @@ begin
   if n <> 0 then raise exception 'FAIL stranger deleted % rows', n; end if;
   ok := false; begin insert into storage.objects (bucket_id, name) values ('covers', gen_random_uuid() || '.webp'); exception when insufficient_privilege then ok := true; end;
   if not ok then raise exception 'FAIL stranger uploaded a cover'; end if;
+  select count(*) into n from public.owner;
+  if n <> 0 then raise exception 'FAIL stranger can see the owner row'; end if;
 
   -- owner: sees all, can write discs and covers; bad URLs rejected
   execute 'reset role'; execute 'set local role authenticated';
   perform set_config('request.jwt.claims', json_build_object('sub', owner_id, 'role', 'authenticated')::text, true);
   select count(*) into n from public.discs where title in ('showcased','shipped-hidden','wip-public');
   if n <> 3 then raise exception 'FAIL owner sees % test discs', n; end if;
+  select count(*) into n from public.owner;
+  if n <> 1 then raise exception 'FAIL owner cannot read own owner row'; end if;
   insert into public.discs (title) values ('owner-new');
   insert into storage.objects (bucket_id, name, owner_id) values ('covers', gen_random_uuid() || '.webp', owner_id::text);
   ok := false; begin insert into public.discs (title, url) values ('bad', 'javascript:alert(1)'); exception when check_violation then ok := true; end;

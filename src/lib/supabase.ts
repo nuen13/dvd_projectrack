@@ -9,4 +9,6 @@ if (!url || !publishableKey) {
 }
 
 /** Browser client. Uses the publishable key only; RLS is the security boundary (ADR-0001). */
-export const supabase = createClient<Database>(url, publishableKey)
+export const supabase = createClient<Database>(url, publishableKey, {
+  auth: { flowType: 'pkce', persistSession: true, detectSessionInUrl: true },
+})
