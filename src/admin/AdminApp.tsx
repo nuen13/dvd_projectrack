@@ -49,7 +49,7 @@ export default function AdminApp() {
 
 function Shell({ children, email, signedIn }: { children: React.ReactNode; email?: string | null; signedIn?: boolean }) {
   return (
-    <div className="admin">
+    <div className="rk-app">
       <header className="rk-top">
         <Link to="/admin" className="rk-brand">{site.kicker} · <b>Admin</b></Link>
         <nav>
