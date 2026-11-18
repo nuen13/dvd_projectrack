@@ -17,8 +17,8 @@ export function DiscTable() {
   const [newTitle, setNewTitle] = useState('')
   const [newStatus, setNewStatus] = useState<DiscStatus>('idea')
 
-  if (isLoading) return <p className="ad-muted">Loading discs…</p>
-  if (isError) return <p className="ad-err">Couldn’t load discs.</p>
+  if (isLoading) return <p className="rk-muted">Loading discs…</p>
+  if (isError) return <p className="rk-err">Couldn’t load discs.</p>
 
   const counts = Object.fromEntries(STATUSES.map((s) => [s, discs.filter((d) => d.status === s).length]))
   const showcased = discs.filter(isShowcased).length
@@ -51,14 +51,14 @@ export function DiscTable() {
 
   return (
     <>
-      <div className="ad-head">
+      <div className="rk-head">
         <h1>Discs</h1>
-        <p className="ad-muted">
+        <p className="rk-muted">
           {discs.length} total · <b>{showcased}</b> showcased on the public site (Shipped + Public)
         </p>
       </div>
 
-      <div className="ad-filters" role="group" aria-label="Filter by status">
+      <div className="rk-filters" role="group" aria-label="Filter by status">
         <button aria-pressed={filter === 'all'} onClick={() => setFilter('all')}>All {discs.length}</button>
         {STATUSES.map((s) => (
           <button key={s} aria-pressed={filter === s} onClick={() => setFilter(s)}>
@@ -67,23 +67,23 @@ export function DiscTable() {
         ))}
       </div>
 
-      <form className="ad-new" onSubmit={addDisc}>
+      <form className="rk-new" onSubmit={addDisc}>
         <input value={newTitle} onChange={(e) => setNewTitle(e.target.value)} maxLength={60} placeholder="New disc title" aria-label="New disc title" />
         <select value={newStatus} onChange={(e) => setNewStatus(e.target.value as DiscStatus)} aria-label="New disc status">
           {STATUSES.map((s) => <option key={s} value={s}>{STATUS_LABEL[s]}</option>)}
         </select>
-        <button className="ad-btn ad-primary" disabled={!newTitle.trim() || create.isPending}>＋ Quick add</button>
-        <Link className="ad-btn" to="/admin/discs/new">Open full editor</Link>
-        {create.isError && <span className="ad-err">Couldn’t add the disc.</span>}
+        <button className="rk-btn rk-primary" disabled={!newTitle.trim() || create.isPending}>＋ Quick add</button>
+        <Link className="rk-btn" to="/admin/discs/new">Open full editor</Link>
+        {create.isError && <span className="rk-err">Couldn’t add the disc.</span>}
       </form>
 
-      {(update.isError || reorder.isError) && <p className="ad-err">A change didn’t save and was undone. Try again.</p>}
+      {(update.isError || reorder.isError) && <p className="rk-err">A change didn’t save and was undone. Try again.</p>}
 
       {rows.length === 0 ? (
-        <p className="ad-muted ad-empty">{discs.length === 0 ? 'No discs yet — add your first one above.' : 'No discs with this status.'}</p>
+        <p className="rk-muted rk-empty">{discs.length === 0 ? 'No discs yet — add your first one above.' : 'No discs with this status.'}</p>
       ) : (
-        <div className="ad-tablewrap">
-          <table className="ad-table">
+        <div className="rk-tablewrap">
+          <table className="rk-table">
             <thead>
               <tr>
                 <th aria-label="Order" />
@@ -109,29 +109,29 @@ export function DiscTable() {
                     onDragOver={(e) => canDrag && e.preventDefault()}
                     onDrop={(e) => onDrop(e, d.id)}
                   >
-                    <td className="ad-order">
+                    <td className="rk-order">
                       {canDrag && (
                         <>
-                          <span className="ad-grip" aria-hidden="true">⋮⋮</span>
-                          <button className="ad-icon" onClick={() => move(d.id, -1)} disabled={n === 1} aria-label={`Move ${d.title} left on shelf`}>↑</button>
-                          <button className="ad-icon" onClick={() => move(d.id, 1)} disabled={n === discs.length} aria-label={`Move ${d.title} right on shelf`}>↓</button>
+                          <span className="rk-grip" aria-hidden="true">⋮⋮</span>
+                          <button className="rk-icon" onClick={() => move(d.id, -1)} disabled={n === 1} aria-label={`Move ${d.title} left on shelf`}>↑</button>
+                          <button className="rk-icon" onClick={() => move(d.id, 1)} disabled={n === discs.length} aria-label={`Move ${d.title} right on shelf`}>↓</button>
                         </>
                       )}
                     </td>
-                    <td className="ad-num">{String(n).padStart(2, '0')}</td>
+                    <td className="rk-num">{String(n).padStart(2, '0')}</td>
                     <td>
-                      <div className={`ad-spine sp${d.spine_wide ? ' wide' : ''}`}
+                      <div className={`rk-spine sp${d.spine_wide ? ' wide' : ''}`}
                         style={{ '--t': d.thickness, '--h': d.height, '--cb': d.cover_bg, '--cf': d.cover_fg } as CSSProperties}>
                         <SpineContent disc={d} n={n} />
                       </div>
                     </td>
                     <td>
-                      <div className="ad-title">{d.title}</div>
-                      <div className="ad-muted ad-sub">{[d.made_for, d.kind].filter(Boolean).join(' · ') || '—'}</div>
+                      <div className="rk-title">{d.title}</div>
+                      <div className="rk-muted rk-sub">{[d.made_for, d.kind].filter(Boolean).join(' · ') || '—'}</div>
                     </td>
                     <td>
                       <select
-                        className={`ad-status s-${d.status}`}
+                        className={`rk-status s-${d.status}`}
                         value={d.status}
                         aria-label={`Status of ${d.title}`}
                         onChange={(e) => update.mutate({ id: d.id, patch: withShippedDate({ status: e.target.value as DiscStatus }, d) })}
@@ -140,7 +140,7 @@ export function DiscTable() {
                       </select>
                     </td>
                     <td>
-                      <label className="ad-toggle">
+                      <label className="rk-toggle">
                         <input
                           type="checkbox"
                           checked={d.is_public}
@@ -150,8 +150,8 @@ export function DiscTable() {
                         <span>{isShowcased(d) ? 'Live' : d.is_public ? 'Public · not shipped' : 'Hidden'}</span>
                       </label>
                     </td>
-                    <td className="ad-muted">{d.shipped_on ?? '—'}</td>
-                    <td><Link className="ad-btn ad-small" to={`/admin/discs/${d.id}`}>Edit</Link></td>
+                    <td className="rk-muted">{d.shipped_on ?? '—'}</td>
+                    <td><Link className="rk-btn rk-small" to={`/admin/discs/${d.id}`}>Edit</Link></td>
                   </tr>
                 )
               })}
@@ -159,7 +159,7 @@ export function DiscTable() {
           </table>
         </div>
       )}
-      {canDrag && discs.length > 1 && <p className="ad-muted ad-hint">Drag rows (or use ↑ ↓) to set the shelf order. Top row = left end of the shelf.</p>}
+      {canDrag && discs.length > 1 && <p className="rk-muted rk-hint">Drag rows (or use ↑ ↓) to set the shelf order. Top row = left end of the shelf.</p>}
     </>
   )
 }

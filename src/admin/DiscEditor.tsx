@@ -58,8 +58,8 @@ export function DiscEditor() {
 
   useEffect(() => () => { if (previewUrl) URL.revokeObjectURL(previewUrl) }, [previewUrl])
 
-  if (isLoading || (!isNew && !disc && !discs)) return <p className="ad-muted">Loading…</p>
-  if (!isNew && !disc) return <div className="ad-card"><p>That disc doesn’t exist.</p><Link to="/admin">← Back to discs</Link></div>
+  if (isLoading || (!isNew && !disc && !discs)) return <p className="rk-muted">Loading…</p>
+  if (!isNew && !disc) return <div className="rk-card"><p>That disc doesn’t exist.</p><Link to="/admin">← Back to discs</Link></div>
   if (!draft) return null
 
   const n = isNew ? (discs?.length ?? 0) + 1 : (discs?.indexOf(disc!) ?? 0) + 1
@@ -148,29 +148,29 @@ export function DiscEditor() {
   }
 
   return (
-    <form className="ad-editor" onSubmit={save} noValidate>
-      <div className="ad-ed-head">
-        <Link to="/admin" className="ad-muted">← Discs</Link>
+    <form className="rk-editor" onSubmit={save} noValidate>
+      <div className="rk-ed-head">
+        <Link to="/admin" className="rk-muted">← Discs</Link>
         <h1>{isNew ? 'New disc' : `Edit · No. ${String(n).padStart(2, '0')}`}</h1>
       </div>
 
-      <div className="ad-ed-body">
-        <aside className="ad-prev">
-          <div className="ad-prev-stage">
+      <div className="rk-ed-body">
+        <aside className="rk-prev">
+          <div className="rk-prev-stage">
             <div className={`prev-spine sp${draft.spine_wide ? ' wide' : ''}`} style={discVars(draft)}>
               <SpineContent disc={preview} n={n} />
             </div>
             <Cover disc={preview} n={n} className="prev-cover" />
           </div>
-          <p className="ad-muted ad-note">Live preview</p>
-          <p className={`ad-badge${draft.status === 'shipped' && draft.is_public ? ' live' : ''}`}>
+          <p className="rk-muted rk-note">Live preview</p>
+          <p className={`rk-badge${draft.status === 'shipped' && draft.is_public ? ' live' : ''}`}>
             {draft.status === 'shipped' && draft.is_public
               ? 'Showcased on the public site'
               : draft.is_public ? 'Public, but only Shipped discs are shown' : 'Hidden from the public site'}
           </p>
         </aside>
 
-        <div className="ad-fields">
+        <div className="rk-fields">
           <label className="f wide"><span>Title *</span>
             <input value={draft.title} onChange={field('title')} maxLength={60} required placeholder="e.g. Clinical Session Recorder" autoFocus={isNew} />
           </label>
@@ -188,7 +188,7 @@ export function DiscEditor() {
               {STATUSES.map((s) => <option key={s} value={s}>{STATUS_LABEL[s]}</option>)}
             </select>
           </label>
-          <label className="f ad-check"><input type="checkbox" checked={draft.is_public} onChange={(e) => set('is_public', e.target.checked)} />
+          <label className="f rk-check"><input type="checkbox" checked={draft.is_public} onChange={(e) => set('is_public', e.target.checked)} />
             <span>Show publicly (when Shipped)</span>
           </label>
           <label className="f"><span>Shipped on</span>
@@ -199,7 +199,7 @@ export function DiscEditor() {
           </label>
           <label className="f wide"><span>Website link</span>
             <input type="url" inputMode="url" value={draft.url ?? ''} onChange={field('url')} maxLength={400} placeholder="https://…" aria-invalid={urlBad} />
-            <small className={urlBad ? 'ad-err' : 'ad-muted'}>{urlBad ? 'Must be an http(s) link.' : 'The “Open website” button in the player goes here.'}</small>
+            <small className={urlBad ? 'rk-err' : 'rk-muted'}>{urlBad ? 'Must be an http(s) link.' : 'The “Open website” button in the player goes here.'}</small>
           </label>
           <label className="f wide"><span>Description</span>
             <textarea value={draft.description ?? ''} onChange={field('description')} maxLength={900} placeholder="What it is, what you built, what’s interesting about it" />
@@ -209,12 +209,12 @@ export function DiscEditor() {
           </label>
 
           <div className="f wide"><span>Cover colours</span>
-            <div className="ad-row">
-              <label className="ad-colour"><input type="color" value={draft.cover_bg} onChange={field('cover_bg')} aria-label="Cover colour" /> Cover</label>
-              <label className="ad-colour"><input type="color" value={draft.cover_fg} onChange={field('cover_fg')} aria-label="Text colour" /> Text</label>
-              <div className="ad-swatches">
+            <div className="rk-row">
+              <label className="rk-colour"><input type="color" value={draft.cover_bg} onChange={field('cover_bg')} aria-label="Cover colour" /> Cover</label>
+              <label className="rk-colour"><input type="color" value={draft.cover_fg} onChange={field('cover_fg')} aria-label="Text colour" /> Text</label>
+              <div className="rk-swatches">
                 {COLOUR_PRESETS.map(([bg, fg], k) => (
-                  <button type="button" key={k} className="ad-sw" style={{ background: bg }} aria-label={`Colour preset ${k + 1}`}
+                  <button type="button" key={k} className="rk-sw" style={{ background: bg }} aria-label={`Colour preset ${k + 1}`}
                     onClick={() => setDraft((d) => (d ? { ...d, cover_bg: bg, cover_fg: fg } : d))}>
                     <i style={{ background: fg }} />
                   </button>
@@ -240,24 +240,24 @@ export function DiscEditor() {
           </label>
 
           <div className="f wide"><span>Cover image (optional)</span>
-            <div className={`ad-drop${dropHot ? ' hot' : ''}`}
+            <div className={`rk-drop${dropHot ? ' hot' : ''}`}
               onDragOver={(e) => { e.preventDefault(); setDropHot(true) }}
               onDragLeave={() => setDropHot(false)}
               onDrop={onDrop}>
               {shownImage && <img src={coverImageUrl({ image_path: shownImage })} alt="" />}
-              <div className="ad-drop-text">
-                <label className="ad-link">
+              <div className="rk-drop-text">
+                <label className="rk-link">
                   {shownImage ? 'Replace image' : 'Upload an image'}
                   <input type="file" accept="image/*" onChange={(e) => { void pickImage(e.target.files?.[0]); e.target.value = '' }} />
                 </label>
-                <span className="ad-muted"> or drop one here · resized to WebP, max 2 MB</span>
+                <span className="rk-muted"> or drop one here · resized to WebP, max 2 MB</span>
                 {shownImage && (
-                  <div className="ad-row">
+                  <div className="rk-row">
                     <select value={draft.image_mode} onChange={field('image_mode')} aria-label="Image placement">
                       <option value="art">In the art box</option>
                       <option value="full">Fill the whole cover</option>
                     </select>
-                    <button type="button" className="ad-btn ad-small" onClick={removeImage}>Remove image</button>
+                    <button type="button" className="rk-btn rk-small" onClick={removeImage}>Remove image</button>
                   </div>
                 )}
               </div>
@@ -266,16 +266,16 @@ export function DiscEditor() {
         </div>
       </div>
 
-      <div className="ad-ed-foot">
+      <div className="rk-ed-foot">
         {!isNew && (
-          <button type="button" className={`ad-btn ad-danger${delArmed ? ' armed' : ''}`} onClick={() => void del()} disabled={saving}>
+          <button type="button" className={`rk-btn rk-danger${delArmed ? ' armed' : ''}`} onClick={() => void del()} disabled={saving}>
             {delArmed ? 'Click again to delete' : 'Delete'}
           </button>
         )}
-        <span className="ad-grow" />
-        {error && <span className="ad-err" role="alert">{error}</span>}
-        <Link to="/admin" className="ad-btn">Cancel</Link>
-        <button type="submit" className="ad-btn ad-primary" disabled={saving}>{saving ? 'Saving…' : 'Save disc'}</button>
+        <span className="rk-grow" />
+        {error && <span className="rk-err" role="alert">{error}</span>}
+        <Link to="/admin" className="rk-btn">Cancel</Link>
+        <button type="submit" className="rk-btn rk-primary" disabled={saving}>{saving ? 'Saving…' : 'Save disc'}</button>
       </div>
     </form>
   )

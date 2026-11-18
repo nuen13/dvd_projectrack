@@ -11,15 +11,15 @@ export default function AdminApp() {
   const owner = useIsOwner(session?.user.id)
 
   if (session === undefined || (session && owner.isLoading)) {
-    return <Shell><p className="ad-muted">Checking sign-in…</p></Shell>
+    return <Shell><p className="rk-muted">Checking sign-in…</p></Shell>
   }
   if (!session) {
     return (
       <Shell>
-        <div className="ad-card ad-center">
+        <div className="rk-card rk-center">
           <h2>Owner sign-in</h2>
-          <p className="ad-muted">Admin is for the shelf’s owner only.</p>
-          <button className="ad-btn ad-primary" onClick={() => void signInWithGitHub()}>Sign in with GitHub</button>
+          <p className="rk-muted">Admin is for the shelf’s owner only.</p>
+          <button className="rk-btn rk-primary" onClick={() => void signInWithGitHub()}>Sign in with GitHub</button>
         </div>
       </Shell>
     )
@@ -27,12 +27,12 @@ export default function AdminApp() {
   if (owner.isError || !owner.data) {
     return (
       <Shell email={session.user.email}>
-        <div className="ad-card ad-center">
+        <div className="rk-card rk-center">
           <h2>Not the owner</h2>
-          <p className="ad-muted">
+          <p className="rk-muted">
             {owner.isError ? 'Couldn’t check ownership. Try again.' : `${session.user.email ?? 'This account'} can’t edit this shelf.`}
           </p>
-          <button className="ad-btn" onClick={() => void signOut()}>Sign out</button>
+          <button className="rk-btn" onClick={() => void signOut()}>Sign out</button>
         </div>
       </Shell>
     )
@@ -50,15 +50,15 @@ export default function AdminApp() {
 function Shell({ children, email, signedIn }: { children: React.ReactNode; email?: string | null; signedIn?: boolean }) {
   return (
     <div className="admin">
-      <header className="ad-top">
-        <Link to="/admin" className="ad-brand">{site.kicker} · <b>Admin</b></Link>
+      <header className="rk-top">
+        <Link to="/admin" className="rk-brand">{site.kicker} · <b>Admin</b></Link>
         <nav>
           <a href="/" target="_blank" rel="noopener">View site ↗</a>
-          {email && <span className="ad-muted">{email}</span>}
-          {signedIn && <button className="ad-btn ad-small" onClick={() => void signOut()}>Sign out</button>}
+          {email && <span className="rk-muted">{email}</span>}
+          {signedIn && <button className="rk-btn rk-small" onClick={() => void signOut()}>Sign out</button>}
         </nav>
       </header>
-      <main className="ad-main">{children}</main>
+      <main className="rk-main">{children}</main>
     </div>
   )
 }
